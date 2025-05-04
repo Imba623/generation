@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Pixel Block Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        
+        .container {
+            text-align: center;
+        }
+        
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Генерация пикселей</h1>
+    <canvas id="pixelCanvas"></canvas><br/>
+    <button onclick="randomize()">Рандом</button>
+</div>
+
+<script>
+    const canvas = document.getElementById('pixelCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Настройка размера холста
+    canvas.width = 400;
+    canvas.height = 400;
+    
+    function randomColor() {
+        return '#' + Math.floor(Math.random()*16777215).toString(16);
+    }
+    
+    function drawBlock(x, y, color) {
+        ctx.fillStyle = color;
+        ctx.fillRect(x * 10, y * 10, 10, 10); // размер блока 10x10 пикселей
+    }
+    
+    function clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    
+    function randomize() {
+        clearCanvas();
+        for(let x=0; x<40; x++) { // 40 блоков по горизонтали
+            for(let y=0; y<40; y++) { // 40 блоков по вертикали
+                let color = randomColor(); // случайный цвет
+                drawBlock(x, y, color);
+            }
+        }
+    }
+    
+    function customize() {
+        clearCanvas();
+        alert("Настройте вручную координаты и цвета");
+        // Здесь можно добавить интерфейс настройки координат и цветов
+    }
+    
+    window.onload = () => {
+        randomize(); // начальная генерация при загрузке страницы
+    };
+</script>
+</body>
+</html>
